@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-      <TargetFrameworks>net48;netstandard2.0;net8.0</TargetFrameworks>
+      <TargetFrameworks>net48;net8.0</TargetFrameworks>
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
       <DefineConstants Condition="'$(TargetFramework)' == 'net8.0'">LOGARY5</DefineConstants>
       <AssemblyName>Logari.Logary</AssemblyName>
@@ -28,20 +28,13 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <PackageReference Include="Logary" Version="(,4.2.1]" />
+    <PackageReference Include="Logary" Version="[4.2.1]" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.2" />
-    <PackageReference Include="NodaTime" Version="(,1.3.4]" />
-    <PackageReference Include="Hopac" Version="(,0.3.23]" />
+    <PackageReference Include="NodaTime" Version="[1.3.1,1.3.4]" />
+    <PackageReference Include="Hopac" Version="[0.1.3,0.3.23]" />
     <PackageReference Include="Logari" Version="1.0.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Logary" Version="(,4.2.1]" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.2" />
-    <PackageReference Include="NodaTime" Version="(,1.3.4]" />
-    <PackageReference Include="Hopac" Version="(,0.3.23]" />
-    <PackageReference Include="Logari" Version="1.0.0" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="8.0.301" />
   </ItemGroup>

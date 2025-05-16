@@ -3,7 +3,6 @@
 module Logging
 
 open Microsoft.Extensions.Logging
-open Logary
 
 /// Old Logary direct calls:
 let logger = lazy(
