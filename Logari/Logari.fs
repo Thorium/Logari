@@ -5,26 +5,31 @@ module Logari
 
 let loggerFactory =
     Microsoft.Extensions.Logging.LoggerFactory.Create(fun builder ->
-        // Cretae a temporary Microsoft.Extensions.Logging.Console
+        // Create a temporary Microsoft.Extensions.Logging.Console
         let _ = Microsoft.Extensions.Logging.ConsoleLoggerExtensions.AddSimpleConsole builder
         ())
 
 /// This is an instance of ILogger.
 /// Initially some temp-logger, can be replaced.
 /// Can be used as poor-man's DI/IoC.
+// That's why it has to be mutable, to provide injection point for later use
 let mutable logger = lazy(loggerFactory.CreateLogger("Temp-logger")) 
 
+/// Logari message
 type CustomMessage =
     { Level: Microsoft.Extensions.Logging.LogLevel 
       Message: string
+      /// Message is a lightweight object to carry structured data.
+      /// The data is not meant to be shared and modified between threads.
+      /// For that reason, the Fields collection is not threat-safe.
       Fields: System.Collections.Generic.Dictionary<string, obj>
     } with override this.ToString() =
             if this = Unchecked.defaultof<CustomMessage> then "" else
             let sb = System.Text.StringBuilder this.Message
-            if this.Fields = null then sb.ToString()
+            if isNull this.Fields then sb.ToString()
             else
             for i in this.Fields do
-                if i.Value <> null then
+                if not(isNull i.Value) then
                     sb.Replace("{" + i.Key + "}", i.Value.ToString()) |> ignore
             sb.ToString()
 
