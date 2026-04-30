@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Logari</AssemblyName>
     <Name>Logari</Name>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <RepositoryUrl>https://github.com/Thorium/Logari</RepositoryUrl>
     <PackageTags>logging, log, logary, logari, dotnet, net, extensions, abstraction, interface, serilog, aspnetcore, api, structured</PackageTags>
     <Description>Use Microsoft.Extensions.Logging.Abstractions like the Logary API, for any custom logging framework</Description>
@@ -14,9 +14,13 @@
     <IsPackable>true</IsPackable>
     <IsTestProject>false</IsTestProject>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
     <Compile Include="Logari.fs" />
   </ItemGroup>
 
