@@ -60,7 +60,7 @@ type LogaryLoggerProvider() =
     let loggers = System.Collections.Concurrent.ConcurrentDictionary<string, LogaryLogger>()
     interface ILoggerProvider with
         member _.CreateLogger categoryName =
-            loggers.GetOrAdd(categoryName, fun name -> new LogaryLogger(name));
+            loggers.GetOrAdd(categoryName, fun name -> LogaryLogger(name));
         member _.Dispose() = loggers.Clear()
 
 let mutable loggingSetup = false

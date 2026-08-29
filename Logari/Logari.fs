@@ -13,7 +13,7 @@ let loggerFactory =
 /// Initially some temp-logger, can be replaced.
 /// Can be used as poor-man's DI/IoC.
 // That's why it has to be mutable, to provide injection point for later use
-let mutable logger = lazy(loggerFactory.CreateLogger("Temp-logger")) 
+let mutable logger = lazy(loggerFactory.CreateLogger "Temp-logger") 
 
 /// Logari message
 type CustomMessage =
@@ -34,11 +34,11 @@ type CustomMessage =
             sb.ToString()
 
 module Message =
-    let eventDebug (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Debug; Message = msg; Fields = new System.Collections.Generic.Dictionary<_,_>()}
-    let eventInfo (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Information; Message = msg; Fields = new System.Collections.Generic.Dictionary<_,_>()}
-    let eventWarn (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Warning; Message = msg; Fields = new System.Collections.Generic.Dictionary<_,_>()}
-    let eventError (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Error; Message = msg; Fields = new System.Collections.Generic.Dictionary<_,_>()}
-    let eventFatal (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Critical; Message = msg; Fields = new System.Collections.Generic.Dictionary<_,_>()}
+    let eventDebug (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Debug; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
+    let eventInfo (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Information; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
+    let eventWarn (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Warning; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
+    let eventError (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Error; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
+    let eventFatal (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Critical; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
     let setField (name:string) (value:obj) (msg:CustomMessage)=
         if not (msg.Fields.ContainsKey name) then
             msg.Fields.Add(name, value)
