@@ -2,6 +2,7 @@
 /// Usage: Replace Logary.Message.eventDebug "hi {a}" |> Logary.Message "a" "world" |> writeLogSimple
 /// With:          Logari.Message.eventDebug "hi {a}" |> Logari.Message "a" "world" |> writeLogSimple
 module Logari
+open System.Collections.Generic
 
 let loggerFactory =
     Microsoft.Extensions.Logging.LoggerFactory.Create(fun builder ->
@@ -22,7 +23,7 @@ type CustomMessage =
       /// Message is a lightweight object to carry structured data.
       /// The data is not meant to be shared and modified between threads.
       /// For that reason, the Fields collection is not threat-safe.
-      Fields: System.Collections.Generic.Dictionary<string, obj>
+      Fields: Dictionary<string, obj>
     } with override this.ToString() =
             if this = Unchecked.defaultof<CustomMessage> then "" else
             let sb = System.Text.StringBuilder this.Message
@@ -34,11 +35,11 @@ type CustomMessage =
             sb.ToString()
 
 module Message =
-    let eventDebug (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Debug; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
-    let eventInfo (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Information; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
-    let eventWarn (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Warning; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
-    let eventError (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Error; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
-    let eventFatal (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Critical; Message = msg; Fields = System.Collections.Generic.Dictionary<_,_>()}
+    let eventDebug (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Debug; Message = msg; Fields = Dictionary<_,_>()}
+    let eventInfo (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Information; Message = msg; Fields = Dictionary<_,_>()}
+    let eventWarn (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Warning; Message = msg; Fields = Dictionary<_,_>()}
+    let eventError (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Error; Message = msg; Fields = Dictionary<_,_>()}
+    let eventFatal (msg:string) = {Level = Microsoft.Extensions.Logging.LogLevel.Critical; Message = msg; Fields = Dictionary<_,_>()}
     let setField (name:string) (value:obj) (msg:CustomMessage)=
         if not (msg.Fields.ContainsKey name) then
             msg.Fields.Add(name, value)
